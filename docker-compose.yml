@@ -1,0 +1,54 @@
+services:
+  mongodb:
+   image: mongo:7
+
+   container_name: bike-rental-mongodb
+   restart: unless-stopped
+   ports:
+      - "27017:27017"
+   volumes:
+      - mongo_data:/data/db
+  
+  redis:
+    image: redis:7-alpine
+    container_name: bike-rental-redis
+    restart: unless-stopped
+    # ports:
+    #   - "6380:6379"
+    volumes:
+      - redis_data:/data
+  backend:
+    build:
+      context: ./server
+    container_name: bike-rental-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./server/.env
+    environment:
+      PORT: 5000
+      MONGO_URI: mongodb+srv://sarthaknagpure1_db_user:83JCC1kq5JTgorTW@cluster0.dcseach.mongodb.net/rental-booking-bike?appName=Cluster0
+      REDIS_URL: redis://redis:6379
+      NODE_ENV: production
+      JWT_SECRET: 8dee26a5b7ce80ef807b5801cd64af55acb57243
+      JWT_EXPIRES_IN: 7d
+      CLIENT_URL: http://localhost:5173
+    depends_on:
+      - mongodb
+      - redis
+  client:
+    build:
+      context: ./client
+      args:
+        VITE_API_URL: /api
+        VITE_RAZORPAY_KEY_ID: rzp_test_T9m4ol98zHghCj
+    container_name: bike-rental-client
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+volumes:
+  mongo_data:
+  redis_data:
