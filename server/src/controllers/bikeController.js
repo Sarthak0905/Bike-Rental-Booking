@@ -1,5 +1,5 @@
 const Bike = require("../models/Bike");
-const { redisClient } = require("../config/redis");
+const { getredisClient } = require("../config/redis");
 const uploadToCloudinary = require("../utils/uploadToCloudinary");
 const clearBikeCache = require("../utils/clearBikeCache");
 const createBike = async (req, res, next) => {
@@ -36,7 +36,8 @@ const createBike = async (req, res, next) => {
 const getBikes = async (req, res, next) => {
   try {
     const cacheKey = `bikes:${JSON.stringify(req.query)}`;
-
+     const redisClient = getRedisClient();
+    if (redisClient) {
     const cachedBikes = await redisClient.get(cacheKey);
 
     if (cachedBikes) {
@@ -45,6 +46,7 @@ const getBikes = async (req, res, next) => {
         fromCache: true
       });
     }
+  }
     const {
       search,
       category,
@@ -101,11 +103,13 @@ const getBikes = async (req, res, next) => {
       bikes,
       fromCache: false
     };
+    if (redisClient) {
      await redisClient.setEx(
       cacheKey,
       60,
       JSON.stringify(responseData)
     );
+  }
     res.status(200).json(responseData);
   } catch (error) {
     next(error);

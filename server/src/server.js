@@ -10,16 +10,10 @@ const startServer = async () => {
   try {
     await connectDB();
 
-    try {
-      await connectRedis();
-    } catch (redisError) {
-      console.error(
-        "Redis unavailable. Starting API without Redis:",
-        redisError.message
-      );
-    }
+    // Redis failure must not stop the API.
+    await connectRedis();
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (error) {
