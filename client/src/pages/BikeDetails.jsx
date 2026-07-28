@@ -58,59 +58,68 @@ const [bookingLoading, setBookingLoading] = useState(false);
   }
 };
   return (
-    <div>
-      <Link to="/">← Back to bikes</Link>
+    <div className="page-card">
+      <Link to="/" className="back-link">← Back to bikes</Link>
 
-      <h1>{bike.name}</h1>
-      <p>Brand: {bike.brand}</p>
-      <p>Category: {bike.category}</p>
-      <p>Location: {bike.location}</p>
-      <p>₹{bike.pricePerDay} per day</p>
-      <p>{bike.description}</p>
-      <div>
-  {bike.images?.map((image) => (
-    <img
-      key={image.publicId}
-      src={image.url}
-      alt={bike.name}
-      width="250"
-      height="180"
-      style={{ objectFit: "cover", marginRight: "10px" }}
-    />
-  ))}
+      <div className="bike-details-header">
+        <div>
+          <h1>{bike.name}</h1>
+          <p>Brand: {bike.brand}</p>
+          <p>Category: {bike.category}</p>
+          <p>Location: {bike.location}</p>
+          <p>₹{bike.pricePerDay} per day</p>
+        </div>
+        <div className="bike-tags">
+          <span className="status-pill">{bike.category}</span>
+        </div>
+      </div>
 
-</div>
-<form onSubmit={handleBooking}>
-  <h2>Book this bike</h2>
+      <p className="bike-description">{bike.description}</p>
 
-  <label>
-    Pickup date
-    <input
-      type="date"
-      value={pickupDate}
-      onChange={(e) => setPickupDate(e.target.value)}
-      required
-    />
-  </label>
+      <div className="bike-images">
+        {bike.images?.length > 0 ? (
+          bike.images.map((image) => (
+            <img
+              key={image.publicId || image.url}
+              src={image.url}
+              alt={bike.name}
+              className="bike-image"
+            />
+          ))
+        ) : (
+          <div className="empty-state">No images available</div>
+        )}
+      </div>
 
-  <label>
-    Return date
-    <input
-      type="date"
-      value={returnDate}
-      onChange={(e) => setReturnDate(e.target.value)}
-      required
-    />
-  </label>
+      <form onSubmit={handleBooking} className="booking-form">
+        <h2>Request a booking</h2>
 
-  <button type="submit" disabled={bookingLoading}>
-    {bookingLoading ? "Creating booking..." : "Request booking"}
-  </button>
+        <label className="form-field">
+          Pickup date
+          <input
+            type="date"
+            value={pickupDate}
+            onChange={(e) => setPickupDate(e.target.value)}
+            required
+          />
+        </label>
 
-  {bookingMessage && <p>{bookingMessage}</p>}
-</form>
-      <button>Book this bike</button>
+        <label className="form-field">
+          Return date
+          <input
+            type="date"
+            value={returnDate}
+            onChange={(e) => setReturnDate(e.target.value)}
+            required
+          />
+        </label>
+
+        <button type="submit" disabled={bookingLoading} className="primary-button">
+          {bookingLoading ? "Creating booking..." : "Request booking"}
+        </button>
+
+        {bookingMessage && <p className="info-text">{bookingMessage}</p>}
+      </form>
     </div>
-    
   );
 }

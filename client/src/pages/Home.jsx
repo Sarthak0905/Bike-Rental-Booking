@@ -47,58 +47,73 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>Balaghat Bike Rental</h1>
+    <div className="page-card">
+      <div className="home-header">
+        <div>
+          <h1>Balaghat Bike Rental</h1>
+          <p className="subtitle">Browse available bikes and book the perfect ride for your trip.</p>
+        </div>
+      </div>
 
-      <form onSubmit={handleSearch}>
-        <input
-          placeholder="Search bike or brand"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <form onSubmit={handleSearch} className="filter-form">
+        <label>
+          Search
+          <input
+            placeholder="Bike name or brand"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </label>
 
-        <input
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
+        <label>
+          Location
+          <input
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </label>
 
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="">All categories</option>
-          <option value="bike">Bike</option>
-          <option value="scooty">Scooty</option>
-        </select>
+        <label>
+          Category
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">All categories</option>
+            <option value="bike">Bike</option>
+            <option value="scooty">Scooty</option>
+          </select>
+        </label>
 
-        <button type="submit">Search</button>
+        <button type="submit" className="primary-button">Search</button>
       </form>
 
-      {loading && <p>Loading bikes...</p>}
-      {error && <p>{error}</p>}
+      {loading && <p className="info-text">Loading bikes...</p>}
+      {error && <p className="error-message">{error}</p>}
+      {!loading && (!bikes || bikes.length === 0) && !error && <p className="empty-state">No bikes found.</p>}
 
-      {!loading && bikes.length === 0 && <p>No bikes found.</p>}
-
-      <div>
-        {bikes.map((bike) => (
+      <div className="bike-grid">
+        {(bikes || []).map((bike) => (
           <BikeCard key={bike._id} bike={bike} />
         ))}
       </div>
 
-      <div>
+      <div className="pagination-bar">
         <button
+          className="secondary-button"
           disabled={page === 1 || loading}
           onClick={() => fetchBikes(page - 1)}
         >
           Previous
         </button>
 
-        <span>
+        <span className="pagination-label">
           Page {page} of {totalPages}
         </span>
 
         <button
+          className="secondary-button"
           disabled={page === totalPages || loading}
           onClick={() => fetchBikes(page + 1)}
         >

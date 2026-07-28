@@ -34,18 +34,29 @@ export default function Profile() {
     navigate("/login");
   };
 
-  if (error) return <p>{error}</p>;
-  if (!user) return <p>Loading profile...</p>;
+  if (error) return <div className="page-card"><p className="error-message">{error}</p></div>;
+  if (!user) return <div className="page-card"><p>Loading profile...</p></div>;
 
   return (
-    <div>
+    <div className="page-card profile-card">
       <h1>My Profile</h1>
 
-      <p>Name: {user.name}</p>
-      <p>Email: {user.email}</p>
-      <p>Role: {user.role}</p>
+      <div className="profile-details">
+        <div>
+          <strong>Name</strong>
+          <p>{user.name}</p>
+        </div>
+        <div>
+          <strong>Email</strong>
+          <p>{user.email}</p>
+        </div>
+        <div>
+          <strong>Role</strong>
+          <p>{user.role}</p>
+        </div>
+      </div>
 
-      <button onClick={logout}>Logout</button>
+      <button className="secondary-button" onClick={logout}>Logout</button>
     </div>
   );
 }

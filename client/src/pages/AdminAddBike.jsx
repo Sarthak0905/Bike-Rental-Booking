@@ -32,7 +32,7 @@ export default function AdminAddBike() {
     setLoading(true);
 
     try {
-       const payload = new FormData();
+      const payload = new FormData();
 
       Object.entries(formData).forEach(([key, value]) => {
         payload.append(key, value);
@@ -41,9 +41,13 @@ export default function AdminAddBike() {
       images.forEach((image) => {
         payload.append("images", image);
       });
-      await api.post("/bikes", {
-        ...formData,
-        pricePerDay: Number(formData.pricePerDay)
+
+      payload.set("pricePerDay", Number(formData.pricePerDay));
+
+      await api.post("/bikes", payload, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       });
 
       navigate("/");
@@ -58,80 +62,90 @@ export default function AdminAddBike() {
   };
 
   return (
-    <div>
+    <div className="page-card auth-card">
       <h1>Add Bike</h1>
 
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Bike name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleSubmit} className="auth-form">
+        <label>
+          Bike name
+          <input
+            name="name"
+            placeholder="Bike name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <br />
+        <label>
+          Brand
+          <input
+            name="brand"
+            placeholder="Brand"
+            value={formData.brand}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <input
-          name="brand"
-          placeholder="Brand"
-          value={formData.brand}
-          onChange={handleChange}
-          required
-        />
+        <label>
+          Category
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+          >
+            <option value="bike">Bike</option>
+            <option value="scooty">Scooty</option>
+          </select>
+        </label>
 
-        <br />
+        <label>
+          Price per day
+          <input
+            type="number"
+            name="pricePerDay"
+            placeholder="Price per day"
+            value={formData.pricePerDay}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-        >
-          <option value="bike">Bike</option>
-          <option value="scooty">Scooty</option>
-        </select>
+        <label>
+          Location
+          <input
+            name="location"
+            placeholder="Location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <br />
+        <label>
+          Description
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </label>
 
-        <input
-          type="number"
-          name="pricePerDay"
-          placeholder="Price per day"
-          value={formData.pricePerDay}
-          onChange={handleChange}
-          required
-        />
+        <label>
+          Upload images
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            multiple
+            onChange={handleImageChange}
+          />
+        </label>
 
-        <br />
-
-        <input
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-
-        <br />
-         <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          multiple
-          onChange={handleImageChange}
-        />
-
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="primary-button" disabled={loading}>
           {loading ? "Adding..." : "Add Bike"}
         </button>
       </form>

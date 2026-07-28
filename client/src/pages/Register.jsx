@@ -43,51 +43,54 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className="page-card auth-card">
       <h1>Create Account</h1>
 
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleSubmit} className="auth-form">
+        <label>
+          Name
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <br />
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <br />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="primary-button" disabled={loading}>
           {loading ? "Creating..." : "Register"}
         </button>
       </form>
 
-      <p>
+      <p className="form-note">
         Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>

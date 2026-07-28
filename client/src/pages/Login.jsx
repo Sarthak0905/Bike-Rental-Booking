@@ -40,40 +40,42 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="page-card auth-card">
       <h1>Login</h1>
 
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+      <form onSubmit={handleSubmit} className="auth-form">
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <br />
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        <br />
-
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="primary-button" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
 
-      <p>
+      <p className="form-note">
         New user? <Link to="/register">Create account</Link>
       </p>
     </div>
