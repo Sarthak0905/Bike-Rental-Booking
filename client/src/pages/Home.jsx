@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import BikeCard from "../components/BikeCard";
-import { Search, MapPin, Filter, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { Search, MapPin, Filter, ChevronLeft, ChevronRight, Loader2, ShieldCheck, Clock, CreditCard } from "lucide-react";
 
 export default function Home() {
   const [bikes, setBikes] = useState([]);
@@ -48,30 +48,72 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-16 pb-12">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 sm:p-12 text-white shadow-lg relative overflow-hidden">
-        <div className="relative z-10 max-w-2xl">
-          <h1 className="text-3xl sm:text-5xl font-bold mb-4">Find your perfect ride</h1>
-          <p className="text-blue-100 text-lg mb-8">
-            Browse our wide selection of bikes and scooters for your next adventure in Balaghat.
-          </p>
+      <section className="relative bg-dark-900 rounded-3xl overflow-hidden mt-6 shadow-2xl">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Motorcycle on road"
+            className="w-full h-full object-cover opacity-40 mix-blend-overlay"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-900/60 to-transparent"></div>
         </div>
-        {/* Decorative circle */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl"></div>
-      </div>
+
+        <div className="relative z-10 px-6 py-20 sm:py-32 sm:px-12 lg:px-20 max-w-4xl">
+          <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+            Explore Balaghat with <span className="text-primary-500">Premium Rides</span>
+          </h1>
+          <p className="text-slate-300 text-lg sm:text-xl mb-10 max-w-2xl leading-relaxed">
+            From powerful cruisers for highway adventures to nimble scooters for city streets, find the perfect two-wheeler for your journey.
+          </p>
+          <div className="flex gap-4">
+            <button onClick={() => document.getElementById('search-section').scrollIntoView({ behavior: 'smooth' })} className="px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl transition-all shadow-glow hover:-translate-y-1">
+              Book Now
+            </button>
+            <button className="px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl backdrop-blur-md transition-all border border-white/10">
+              View Pricing
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-soft flex flex-col items-center text-center">
+          <div className="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6">
+            <ShieldCheck size={28} />
+          </div>
+          <h3 className="text-lg font-bold text-slate-900 mb-2">Verified Bikes</h3>
+          <p className="text-slate-500 leading-relaxed">Every vehicle is thoroughly inspected and serviced to ensure your safety and comfort.</p>
+        </div>
+        <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-soft flex flex-col items-center text-center">
+          <div className="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6">
+            <Clock size={28} />
+          </div>
+          <h3 className="text-lg font-bold text-slate-900 mb-2">Instant Booking</h3>
+          <p className="text-slate-500 leading-relaxed">Skip the line. Book your ride in seconds and hold your reservation immediately.</p>
+        </div>
+        <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-soft flex flex-col items-center text-center">
+          <div className="w-14 h-14 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center mb-6">
+            <CreditCard size={28} />
+          </div>
+          <h3 className="text-lg font-bold text-slate-900 mb-2">Secure Payments</h3>
+          <p className="text-slate-500 leading-relaxed">Integrated with Razorpay for 100% secure, seamless, and lightning-fast transactions.</p>
+        </div>
+      </section>
 
       {/* Search & Filter */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-        <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section id="search-section" className="bg-white p-6 rounded-2xl shadow-soft border border-slate-100">
+        <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <div className="relative">
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Search</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Search</label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-slate-400" />
               </div>
               <input
-                className="pl-10 w-full rounded-lg border-gray-200 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all py-2.5 px-3 text-sm"
+                className="pl-11 w-full rounded-xl border-slate-200 bg-slate-50 border focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 outline-none transition-all py-3 px-4 font-medium"
                 placeholder="Bike name or brand..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -80,13 +122,13 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Location</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Location</label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <MapPin className="h-4 w-4 text-gray-400" />
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <MapPin className="h-4 w-4 text-slate-400" />
               </div>
               <input
-                className="pl-10 w-full rounded-lg border-gray-200 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all py-2.5 px-3 text-sm"
+                className="pl-11 w-full rounded-xl border-slate-200 bg-slate-50 border focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 outline-none transition-all py-3 px-4 font-medium"
                 placeholder="e.g. City Center..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
@@ -95,19 +137,19 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Category</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Category</label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Filter className="h-4 w-4 text-gray-400" />
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Filter className="h-4 w-4 text-slate-400" />
               </div>
               <select
-                className="pl-10 w-full rounded-lg border-gray-200 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all py-2.5 px-3 text-sm appearance-none"
+                className="pl-11 w-full rounded-xl border-slate-200 bg-slate-50 border focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 outline-none transition-all py-3 px-4 font-medium appearance-none cursor-pointer"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">All Categories</option>
-                <option value="bike">Bike</option>
-                <option value="scooty">Scooty</option>
+                <option value="bike">Motorcycle</option>
+                <option value="scooty">Scooter</option>
               </select>
             </div>
           </div>
@@ -115,42 +157,45 @@ export default function Home() {
           <div className="flex items-end">
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm"
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg active:scale-[0.98]"
             >
-              Search
+              Search Rides
             </button>
           </div>
         </form>
-      </div>
+      </section>
 
       {/* Results */}
-      <div>
-        <div className="mb-6 flex justify-between items-end">
-          <h2 className="text-xl font-bold text-gray-900">Available Vehicles</h2>
+      <section>
+        <div className="mb-8 flex justify-between items-end">
+          <div>
+            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Available Fleet</h2>
+            <p className="text-slate-500 mt-1">Select from our top-rated vehicles</p>
+          </div>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6 border border-red-100 flex items-center gap-3">
-             <span className="font-medium">{error}</span>
+          <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-6 border border-red-100 flex items-center gap-3">
+             <span className="font-semibold">{error}</span>
           </div>
         )}
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 text-gray-500">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-4" />
-            <p>Finding the best rides for you...</p>
+          <div className="flex flex-col items-center justify-center py-32 text-slate-400">
+            <Loader2 className="w-10 h-10 animate-spin text-primary-500 mb-6" />
+            <p className="font-medium text-lg">Curating the best rides for you...</p>
           </div>
         ) : (!bikes || bikes.length === 0) && !error ? (
-          <div className="text-center py-20 bg-white rounded-xl border border-gray-100 shadow-sm">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
-              <Search size={24} />
+          <div className="text-center py-32 bg-white rounded-3xl border border-dashed border-slate-300">
+            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
+              <Search size={32} />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-1">No bikes found</h3>
-            <p className="text-gray-500">Try adjusting your filters or search criteria.</p>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">No rides found</h3>
+            <p className="text-slate-500 max-w-sm mx-auto">We couldn't find any vehicles matching your criteria. Try tweaking your search filters.</p>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {(bikes || []).map((bike) => (
                 <BikeCard key={bike._id} bike={bike} />
               ))}
@@ -158,12 +203,12 @@ export default function Home() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-4 mt-10">
+              <div className="flex justify-center items-center gap-4 mt-16">
                 <button
-                  className={`p-2 rounded-lg border flex items-center justify-center transition-colors ${
+                  className={`p-3 rounded-xl border-2 flex items-center justify-center transition-all ${
                     page === 1 
-                      ? "border-gray-200 text-gray-300 cursor-not-allowed" 
-                      : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                      ? "border-slate-100 text-slate-300 cursor-not-allowed" 
+                      : "border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 active:scale-95"
                   }`}
                   disabled={page === 1 || loading}
                   onClick={() => fetchBikes(page - 1)}
@@ -171,15 +216,15 @@ export default function Home() {
                   <ChevronLeft size={20} />
                 </button>
 
-                <span className="text-sm font-medium text-gray-600">
-                  Page <span className="text-gray-900">{page}</span> of {totalPages}
+                <span className="font-semibold text-slate-400">
+                  <span className="text-slate-900 text-lg px-2">{page}</span> / {totalPages}
                 </span>
 
                 <button
-                  className={`p-2 rounded-lg border flex items-center justify-center transition-colors ${
+                  className={`p-3 rounded-xl border-2 flex items-center justify-center transition-all ${
                     page === totalPages 
-                      ? "border-gray-200 text-gray-300 cursor-not-allowed" 
-                      : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                      ? "border-slate-100 text-slate-300 cursor-not-allowed" 
+                      : "border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 active:scale-95"
                   }`}
                   disabled={page === totalPages || loading}
                   onClick={() => fetchBikes(page + 1)}
@@ -190,7 +235,7 @@ export default function Home() {
             )}
           </>
         )}
-      </div>
+      </section>
     </div>
   );
 }
