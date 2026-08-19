@@ -1,31 +1,31 @@
 # Bike Rental Booking
 
-A full-stack bike rental booking platform built with React and Node.js. It allows users to browse bikes, make bookings, complete payments, and manage their reservations, while admins can add new bikes to the catalog.
+A full-stack bike rental booking platform built with React, Tailwind CSS, and Node.js. It allows users to browse bikes, make bookings, complete payments, and manage their reservations, while admins can manage bookings and add new bikes to the catalog via a dedicated dashboard.
 
 ## 🚀 Features
 
-- User registration and login
-- Bike listing and detailed bike view
-- Booking flow for selected dates
-- My bookings dashboard
-- Secure payment integration with Razorpay
-- Admin support for adding bikes
-- API documentation with Swagger
+- **Beautiful Modern UI:** Fully styled using Tailwind CSS and Lucide icons.
+- **User Authentication:** Secure registration and login using JWT.
+- **Bike Catalog:** Browse bikes, view details, filter, and search.
+- **Booking Flow:** Select dates, hold bookings with Redis, and manage reservations.
+- **Secure Payments:** Full payment integration with Razorpay.
+- **Admin Dashboard:** A dedicated control panel for admins to view platform statistics, approve/reject pending bookings, and add new bikes.
+- **Performance Optimized:** Features React lazy loading (Code Splitting), backend compound database indexing, and async controller handling.
+- **API Documentation:** Auto-generated Swagger documentation.
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- React
-- Vite
-- React Router
+- React (Vite)
+- Tailwind CSS & Lucide React
+- React Router (with Code Splitting/Lazy Loading)
 - Axios
 
 ### Backend
-- Node.js
-- Express
-- MongoDB with Mongoose
-- Redis
-- JWT authentication
+- Node.js & Express (with express-async-handler)
+- MongoDB with Mongoose (Optimized Indexing)
+- Redis (for caching and booking holds)
+- JWT Authentication
 - Swagger UI
 - Nodemailer
 - Cloudinary
@@ -33,9 +33,9 @@ A full-stack bike rental booking platform built with React and Node.js. It allow
 ## 📁 Project Structure
 
 ```text
-client/              # React frontend
+client/              # React frontend (Vite + Tailwind)
 server/              # Express backend
-docker-compose.yml   # MongoDB, Redis, backend, and client services
+docker-compose.yml   # Orchestration for MongoDB, Redis, backend, and client services
 ```
 
 ## ⚙️ Prerequisites
@@ -49,8 +49,9 @@ Make sure the following are installed on your machine:
 
 ## 🔐 Environment Variables
 
-Create a `.env` file inside the `server` directory with values similar to:
+Create `.env` files for both the frontend and backend.
 
+### `server/.env`
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/bike-rental
@@ -65,6 +66,11 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 RAZORPAY_KEY_ID=your_razorpay_key
 RAZORPAY_KEY_SECRET=your_razorpay_secret
+```
+
+### `client/.env`
+```env
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ## ▶️ Getting Started
@@ -108,19 +114,21 @@ npm run dev
 
 The frontend will run at `http://localhost:5173`.
 
-## 🐳 Run with Docker Compose
+## 🐳 Run with Docker Compose (Production Ready)
+
+Our Docker setup is production-ready. The frontend is built and served via a lightweight Node static server, and the backend routes are intelligently handled. 
 
 From the project root:
 
 ```bash
-docker compose up --build
+docker-compose up --build -d
 ```
 
 This starts:
 - MongoDB on port `27017`
 - Redis
-- Backend on port `5000`
-- Frontend on port `5173`
+- Backend API on port `5000`
+- Frontend UI on port `5173`
 
 ## 📚 API Documentation
 
