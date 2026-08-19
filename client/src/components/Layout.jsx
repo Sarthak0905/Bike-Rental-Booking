@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { LogOut, User, Calendar, PlusCircle, Bike, Shield, LayoutDashboard, Instagram, Facebook, Twitter, MapPin, Mail, Phone } from "lucide-react";
+import { LogOut, User, Calendar, PlusCircle, Bike, Shield, LayoutDashboard, MapPin, Mail, Phone } from "lucide-react";
 
 export default function Layout() {
   const token = localStorage.getItem("token");
@@ -115,9 +115,9 @@ export default function Layout() {
                 Experience the thrill of the ride. We offer the best two-wheelers in town with instant booking, competitive pricing, and top-notch customer support.
               </p>
               <div className="flex items-center gap-4">
-                <a href="#" className="p-2 bg-slate-800 text-slate-400 rounded-full hover:bg-primary-500 hover:text-white transition-all"><Facebook size={20} /></a>
-                <a href="#" className="p-2 bg-slate-800 text-slate-400 rounded-full hover:bg-primary-500 hover:text-white transition-all"><Twitter size={20} /></a>
-                <a href="#" className="p-2 bg-slate-800 text-slate-400 rounded-full hover:bg-primary-500 hover:text-white transition-all"><Instagram size={20} /></a>
+                <a href="#" className="text-slate-400 hover:text-primary-500 transition-colors font-medium">Facebook</a>
+                <a href="#" className="text-slate-400 hover:text-primary-500 transition-colors font-medium">Twitter</a>
+                <a href="#" className="text-slate-400 hover:text-primary-500 transition-colors font-medium">Instagram</a>
               </div>
             </div>
 
