@@ -33,7 +33,7 @@ services:
       NODE_ENV: production
       JWT_SECRET: 8dee26a5b7ce80ef807b5801cd64af55acb57243
       JWT_EXPIRES_IN: 7d
-      CLIENT_URL: http://localhost:5173
+      CLIENT_URL: http://localhost:5173,https://bike-rental-booking.vercel.app
     depends_on:
       - mongodb
       - redis
