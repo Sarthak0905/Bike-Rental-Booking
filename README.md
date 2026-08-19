@@ -1,12 +1,13 @@
 # Bike Rental Booking
 
-A full-stack bike rental booking platform built with React, Tailwind CSS, and Node.js. It allows users to browse bikes, make bookings, complete payments, and manage their reservations, while admins can manage bookings and add new bikes to the catalog via a dedicated dashboard.
+A premium, full-stack bike rental booking platform built with React, Tailwind CSS, and Node.js. It allows users to browse bikes, make bookings, complete payments, and manage their reservations, while admins can manage bookings and add new bikes to the catalog via a dedicated dashboard.
 
 ## 🚀 Features
 
-- **Beautiful Modern UI:** Fully styled using Tailwind CSS and Lucide icons.
+- **Premium Industry-Ready UI:** Fully styled using Tailwind CSS (Deep Slate & Emerald theme) with glassmorphic navigation, sticky split-screen booking cards, and physics-based hover animations.
+- **Automated Emails:** Integrates robust Nodemailer via **Google OAuth2** for automatic Welcome Emails on registration, Booking Confirmations, and Cancellation notices.
 - **User Authentication:** Secure registration and login using JWT.
-- **Bike Catalog:** Browse bikes, view details, filter, and search.
+- **Bike Catalog:** Browse bikes, view details, filter, and search through a highly responsive grid.
 - **Booking Flow:** Select dates, hold bookings with Redis, and manage reservations.
 - **Secure Payments:** Full payment integration with Razorpay.
 - **Admin Dashboard:** A dedicated control panel for admins to view platform statistics, approve/reject pending bookings, and add new bikes.
@@ -27,7 +28,7 @@ A full-stack bike rental booking platform built with React, Tailwind CSS, and No
 - Redis (for caching and booking holds)
 - JWT Authentication
 - Swagger UI
-- Nodemailer
+- Nodemailer (Configured with secure Google OAuth2)
 - Cloudinary
 
 ## 📁 Project Structure
@@ -49,7 +50,7 @@ Make sure the following are installed on your machine:
 
 ## 🔐 Environment Variables
 
-Create `.env` files for both the frontend and backend.
+Create `.env` files for both the frontend and backend. **Do not commit these files to version control.** Our `docker-compose.yml` is safely configured to dynamically pull variables from these local files to prevent security leaks.
 
 ### `server/.env`
 ```env
@@ -57,12 +58,17 @@ PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/bike-rental
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=your_jwt_secret
-JWT_EXPIRES_IN=7d
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=http://localhost:5173,https://your-production-url.com
 
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
+
+EMAIL_USER=your_gmail_address
+EMAIL_FROM=your_gmail_address
+CLIENT_ID=your_google_oauth_client_id
+CLIENT_SECRET=your_google_oauth_client_secret
+REFRESH_TOKEN=your_google_oauth_refresh_token
 
 RAZORPAY_KEY_ID=your_razorpay_key
 RAZORPAY_KEY_SECRET=your_razorpay_secret
@@ -71,6 +77,7 @@ RAZORPAY_KEY_SECRET=your_razorpay_secret
 ### `client/.env`
 ```env
 VITE_API_URL=http://localhost:5000/api
+VITE_RAZORPAY_KEY_ID=your_razorpay_key
 ```
 
 ## ▶️ Getting Started
@@ -116,7 +123,7 @@ The frontend will run at `http://localhost:5173`.
 
 ## 🐳 Run with Docker Compose (Production Ready)
 
-Our Docker setup is production-ready. The frontend is built and served via a lightweight Node static server, and the backend routes are intelligently handled. 
+Our Docker setup is highly secure and production-ready. Hardcoded credentials have been removed from the `.yml` file, so the containers will safely pull secrets directly from your local `server/.env` file instead.
 
 From the project root:
 
