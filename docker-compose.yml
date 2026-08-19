@@ -28,12 +28,10 @@ services:
       - ./server/.env
     environment:
       PORT: 5000
-      MONGO_URI: mongodb+srv://sarthaknagpure1_db_user:83JCC1kq5JTgorTW@cluster0.dcseach.mongodb.net/rental-booking-bike?appName=Cluster0
       REDIS_URL: redis://redis:6379
       NODE_ENV: production
-      JWT_SECRET: 8dee26a5b7ce80ef807b5801cd64af55acb57243
-      JWT_EXPIRES_IN: 7d
-      CLIENT_URL: http://localhost:5173,https://bike-rental-booking.vercel.app
+      # Other variables (MONGO_URI, JWT_SECRET, CLIENT_URL, etc.) 
+      # are safely injected from the ./server/.env file!
     depends_on:
       - mongodb
       - redis
@@ -41,8 +39,8 @@ services:
     build:
       context: ./client
       args:
-        VITE_API_URL: http://localhost:5000/api
-        VITE_RAZORPAY_KEY_ID: rzp_test_T9m4ol98zHghCj
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:5000/api}
+        VITE_RAZORPAY_KEY_ID: ${VITE_RAZORPAY_KEY_ID}
     container_name: bike-rental-client
     restart: unless-stopped
     ports:
