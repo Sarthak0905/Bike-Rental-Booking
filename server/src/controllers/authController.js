@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
+const { sendWelcomeEmail } = require("../services/emailService");
 
 const createToken = (userId) => {
   return jwt.sign(
@@ -37,6 +38,13 @@ const register = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword
   });
+
+  // Attempt to send welcome email, but don't block response if it fails
+  try {
+    await sendWelcomeEmail(user);
+  } catch (err) {
+    console.error("Failed to send welcome email:", err.message);
+  }
 
   const token = createToken(user._id);
 
