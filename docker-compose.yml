@@ -28,7 +28,7 @@ services:
       - ./server/.env
     environment:
       PORT: 5000
-      MONGO_URI: mongodb+srv://sarthaknagpure1_db_user:Gapu123@cluster0.zjtruar.mongodb.net/Bg-Remover?appName=Cluster0
+      MONGO_URI: mongodb+srv://sarthaknagpure1_db_user:83JCC1kq5JTgorTW@cluster0.dcseach.mongodb.net/rental-booking-bike?appName=Cluster0
       REDIS_URL: redis://redis:6379
       NODE_ENV: production
       JWT_SECRET: 8dee26a5b7ce80ef807b5801cd64af55acb57243
