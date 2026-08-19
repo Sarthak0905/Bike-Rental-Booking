@@ -89,9 +89,6 @@ router.get("/:id", getBikeById);
  *       403:
  *         description: Admin access required
  */
-router.post("/", protect, allowRoles("admin"), createBike);
-router.patch("/:id", protect, allowRoles("admin"), updateBike);
-router.delete("/:id", protect, allowRoles("admin"), deleteBike);
 router.post(
   "/",
   protect,
@@ -99,4 +96,6 @@ router.post(
   upload.array("images", 5),
   createBike
 );
+router.patch("/:id", protect, allowRoles("admin"), updateBike);
+router.delete("/:id", protect, allowRoles("admin"), deleteBike);
 module.exports = router;

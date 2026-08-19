@@ -7,14 +7,6 @@ const {
   registerValidator,
   loginValidator
 } = require("../validators/authValidator");
-// const { redisClient } = require("../config/redis");
-// const { RedisStore } = require("rate-limit-redis");
-const createRedisRateLimitStore = (prefix) => {
-  return new RedisStore({
-    prefix,
-    sendCommand: (...args) => redisClient.sendCommand(args)
-  });
-};
 const router = express.Router();
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -26,17 +18,6 @@ const authLimiter = rateLimit({
     message: "Too many login attempts. Please try again later."
   }
 });
-// const authLimiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   limit: 10,
-//   standardHeaders: "draft-7",
-//   legacyHeaders: false,
-//   store: createRedisRateLimitStore("rl:auth:"),
-//   message: {
-//     success: false,
-//     message: "Too many login attempts. Please try again later."
-//   }
-// });
 /**
  * @swagger
  * /auth/register:

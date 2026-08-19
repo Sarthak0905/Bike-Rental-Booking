@@ -1,7 +1,12 @@
-const { redisClient } = require("../config/redis");
+const { getRedisClient } = require("../config/redis");
 
 const createBookingHold = async ({ bikeId, pickupDate, returnDate, userId }) => {
   const holdKey = `booking-hold:${bikeId}:${pickupDate}:${returnDate}`;
+  const redisClient = getRedisClient();
+  
+  if (!redisClient) {
+    return { created: true, holdKey }; // Bypass hold if Redis is disabled
+  }
 
   const result = await redisClient.set(
     holdKey,
@@ -19,7 +24,10 @@ const createBookingHold = async ({ bikeId, pickupDate, returnDate, userId }) => 
 };
 
 const releaseBookingHold = async (holdKey) => {
-  await redisClient.del(holdKey);
+  const redisClient = getRedisClient();
+  if (redisClient) {
+    await redisClient.del(holdKey);
+  }
 };
 
 module.exports = {

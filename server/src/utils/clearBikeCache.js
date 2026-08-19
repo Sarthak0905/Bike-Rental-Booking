@@ -1,14 +1,17 @@
-const { redisClient } = require("../config/redis");
+const { getRedisClient } = require("../config/redis");
 
 const clearBikeCache = async () => {
   try{
-  const keys = [];
+    const redisClient = getRedisClient();
+    if (!redisClient) return;
 
-  for await (const key of redisClient.scanIterator({
-    MATCH: "bikes:*"
-  })) {
-    keys.push(...key);
-  }
+    const keys = [];
+
+    for await (const key of redisClient.scanIterator({
+      MATCH: "bikes:*"
+    })) {
+      keys.push(key);
+    }
 
   if (keys.length > 0) {
     await redisClient.del(keys);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
+import { Bike, User, Mail, Lock, UserPlus, AlertCircle } from "lucide-react";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -43,56 +44,95 @@ export default function Register() {
   };
 
   return (
-    <div className="page-card auth-card">
-      <h1>Create Account</h1>
+    <div className="max-w-md mx-auto mt-10">
+      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
+            <UserPlus size={24} />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
+          <p className="text-gray-500 text-sm mt-1">Join us to start booking rides</p>
+        </div>
 
-      {error && <p className="error-message">{error}</p>}
+        {error && (
+          <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-6 border border-red-100 flex items-center gap-2 text-sm">
+            <AlertCircle size={16} />
+            <span>{error}</span>
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className="auth-form">
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <User className="h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                name="name"
+                className="pl-10 w-full rounded-lg border-gray-200 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all py-2.5 px-3 text-sm"
+                placeholder="John Doe"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Mail className="h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                type="email"
+                name="email"
+                className="pl-10 w-full rounded-lg border-gray-200 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all py-2.5 px-3 text-sm"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Lock className="h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                type="password"
+                name="password"
+                className="pl-10 w-full rounded-lg border-gray-200 bg-gray-50 border focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all py-2.5 px-3 text-sm"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-        <button type="submit" className="primary-button" disabled={loading}>
-          {loading ? "Creating..." : "Register"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm"
+            disabled={loading}
+          >
+            {loading ? (
+              <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> Creating...</>
+            ) : (
+              "Create Account"
+            )}
+          </button>
+        </form>
 
-      <p className="form-note">
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+        <div className="mt-6 pt-6 border-t border-gray-100 text-center text-sm text-gray-500">
+          Already have an account? <Link to="/login" className="text-blue-600 font-medium hover:underline">Sign In</Link>
+        </div>
+      </div>
     </div>
   );
 }

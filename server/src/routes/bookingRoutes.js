@@ -16,7 +16,7 @@ const {
   createBookingHold,
   releaseBookingHold
 } = require("../utils/bookingHold");
-const { redisClient } = require("../config/redis");
+const { getRedisClient } = require("../config/redis");
 const router = express.Router();
 router.post("/hold", protect, async (req, res, next) => {
   try {
@@ -63,6 +63,11 @@ router.delete("/hold", protect, async (req, res, next) => {
       });
     }
 
+    const redisClient = getRedisClient();
+    if (!redisClient) {
+      return res.status(503).json({ success: false, message: "Redis is not available." });
+    }
+    
     const ownerId = await redisClient.get(holdKey);
 
     if (ownerId !== req.user._id.toString()) {

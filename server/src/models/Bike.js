@@ -51,4 +51,6 @@ bikeSchema.index({
   location: "text"
 });
 
+bikeSchema.index({ category: 1, isAvailable: 1, pricePerDay: 1 });
+
 module.exports = mongoose.model("Bike", bikeSchema);
